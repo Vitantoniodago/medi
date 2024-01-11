@@ -1,0 +1,4936 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "v1",
+      "title": "MediHome-CloudServer"
+    },
+    "host": "cloud.medihome.it",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/api/Account/Session": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Login di uno specifico utente",
+          "operationId": "Account_Login",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "user_login",
+              "in": "body",
+              "description": "Informazioni login utente",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIUser"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPISession"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/Register": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Registra un nuovo utente per l'accesso al sistema",
+          "operationId": "Account_Register",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "user_register",
+              "in": "body",
+              "description": "Informazioni utente registrato",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIUser"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPISession"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/UserInfo": {
+        "get": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Restituisce le informazioni dell'utente",
+          "operationId": "Account_GetUserInfo",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/UserInfoViewModel"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/Logout": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Disconnetti istanza",
+          "operationId": "Account_Logout",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/ManageInfo": {
+        "get": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Restituisce le informazioni di managment dell'utente",
+          "operationId": "Account_GetManageInfo",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "returnUrl",
+              "in": "query",
+              "description": "Url di ritorno",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "generateState",
+              "in": "query",
+              "description": "Se settato vero [generate state].",
+              "required": false,
+              "type": "boolean"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/ManageInfoViewModel"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/ChangePassword": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Cambia la password utente",
+          "operationId": "Account_ChangePassword",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "model",
+              "in": "body",
+              "description": "Informazioni utente per il cambio password",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ChangePasswordBindingModel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/SetPassword": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Imposta la password",
+          "operationId": "Account_SetPassword",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "model",
+              "in": "body",
+              "description": "Modello di gestione password",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SetPasswordBindingModel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/AddExternalLogin": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Aggiunta di una servizio di login esterno",
+          "operationId": "Account_AddExternalLogin",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "model",
+              "in": "body",
+              "description": "Modello di dati per login esterna",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/AddExternalLoginBindingModel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/RemoveLogin": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Rimuovere una login esterna",
+          "operationId": "Account_RemoveLogin",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "model",
+              "in": "body",
+              "description": "Modello di dati per la rimozione dell'accesso",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/RemoveLoginBindingModel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/ExternalLogin": {
+        "get": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Accesso tramite provider di terze parti",
+          "operationId": "Account_GetExternalLogin",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "provider",
+              "in": "query",
+              "description": "Provider di autenticazione",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "error",
+              "in": "query",
+              "description": "Errore",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/ExternalLogins": {
+        "get": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Accesso tramite provider di terze parti",
+          "operationId": "Account_GetExternalLogins",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "returnUrl",
+              "in": "query",
+              "description": "Url di ritorno",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "generateState",
+              "in": "query",
+              "description": "Settato a true [generate state].",
+              "required": false,
+              "type": "boolean"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/ExternalLoginViewModel"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Account/RegisterExternal": {
+        "post": {
+          "tags": [
+            "Account"
+          ],
+          "summary": "Registers the external.",
+          "operationId": "Account_RegisterExternal",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "model",
+              "in": "body",
+              "description": "The model.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/RegisterExternalBindingModel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/ArchivioParametri/CreaPrestazione": {
+        "post": {
+          "tags": [
+            "ArchivioParametri"
+          ],
+          "summary": "Crea una prestazione.",
+          "operationId": "ArchivioParametri_CreaPrestazione",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "session",
+              "in": "query",
+              "description": "Sessione di accesso",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "user",
+              "in": "query",
+              "description": "Utente",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "intervento",
+              "in": "body",
+              "description": "Dettagli di intervento",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          }
+        }
+      },
+      "/api/ArchivioParametri/InterrompiPrestazione": {
+        "post": {
+          "tags": [
+            "ArchivioParametri"
+          ],
+          "summary": "Interrompi la prestazione.",
+          "operationId": "ArchivioParametri_InterrompiPrestazione",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "intervento",
+              "in": "body",
+              "description": "Dettagli di intervento con prestazione da terminare",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          }
+        }
+      },
+      "/api/ArchivioParametri/CheckPrestazione": {
+        "post": {
+          "tags": [
+            "ArchivioParametri"
+          ],
+          "summary": "Controllo della prestazione",
+          "operationId": "ArchivioParametri_CheckPrestazione",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "intervento",
+              "in": "body",
+              "description": "Dettaglio di intervento con prestazione da controllare",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          }
+        }
+      },
+      "/api/ArchivioParametri/InvioParametro": {
+        "post": {
+          "tags": [
+            "ArchivioParametri"
+          ],
+          "summary": "Salvataggio di un parametro rilevato",
+          "operationId": "ArchivioParametri_InvioParametro",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Intervento",
+              "in": "body",
+              "description": "Intervento per il quale si effettua la misurazione",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIParametroPrestazione"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "/api/ArchivioParametri/InvioSetParametri": {
+        "post": {
+          "tags": [
+            "ArchivioParametri"
+          ],
+          "summary": "Salvataggio di un set di parametri rilevato",
+          "operationId": "ArchivioParametri_InvioSetParametri",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Interventi",
+              "in": "body",
+              "description": "Intervento per il quale si effettua la misurazione",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIParametroPrestazione"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "/api/ArchivioParametri/ParametriRilevati": {
+        "post": {
+          "tags": [
+            "ArchivioParametri"
+          ],
+          "summary": "Elenco dei parametri di un intervento.",
+          "operationId": "ArchivioParametri_ParametriRilevati",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "richiestaParametri",
+              "in": "body",
+              "description": "Dettaglio di richiesta dei parametri",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIRichiestaParametri"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIParametroPrestazione"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Assistito/Lista": {
+        "post": {
+          "tags": [
+            "Assistito"
+          ],
+          "operationId": "Assistito_Lista",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "session",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPISession"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIAssistito"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Assistito/Scheda": {
+        "post": {
+          "tags": [
+            "Assistito"
+          ],
+          "operationId": "Assistito_Scheda",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Assistito",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIAssistito"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/Assistito/Somministrazioni": {
+        "post": {
+          "tags": [
+            "Assistito"
+          ],
+          "operationId": "Assistito_Somministrazioni",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Assistito",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIAssistito"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      },
+      "/api/AttivitaDomiciliare/Interventi/{id}": {
+        "get": {
+          "tags": [
+            "AttivitaDomiciliare"
+          ],
+          "summary": "Lista degli interventi di un assistito",
+          "operationId": "AttivitaDomiciliare_Interventi1",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Identificato dell'assistito",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIAttivitaEsterna"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/AttivitaDomiciliare/Interventi": {
+        "post": {
+          "tags": [
+            "AttivitaDomiciliare"
+          ],
+          "summary": "Lista degli interventi con richiesta parametrizzata",
+          "operationId": "AttivitaDomiciliare_Interventi",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Richiesta",
+              "in": "body",
+              "description": "Richiesta parametrizzata per la ricerca dell'elenco",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIRichiestaInterventi"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIAttivitaEsterna"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/AttivitaDomiciliare/ProssimoIntervento": {
+        "post": {
+          "tags": [
+            "AttivitaDomiciliare"
+          ],
+          "summary": "Prossimo intervento.",
+          "operationId": "AttivitaDomiciliare_ProssimoIntervento",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Richiesta",
+              "in": "body",
+              "description": "Richiesta parametrizzata per la ricerca dell'elenco",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIRichiestaInterventi"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIAttivitaEsterna"
+              }
+            }
+          }
+        }
+      },
+      "/api/AttivitaDomiciliare/InterventiAssistito": {
+        "post": {
+          "tags": [
+            "AttivitaDomiciliare"
+          ],
+          "summary": "Lista degli interventi di un assistito con richiesta parametrizzata",
+          "operationId": "AttivitaDomiciliare_InterventiAssistito",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Richiesta",
+              "in": "body",
+              "description": "Richiesta parametrizzata per la ricerca dell'elenco",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIRichiestaInterventi"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIAttivitaEsterna"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/AttivitaDomiciliare/ProssimoInterventoAssistito": {
+        "post": {
+          "tags": [
+            "AttivitaDomiciliare"
+          ],
+          "summary": "Prossimo intervento di un assistito.",
+          "operationId": "AttivitaDomiciliare_ProssimoInterventoAssistito",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Richiesta",
+              "in": "body",
+              "description": "Richiesta parametrizzata per la ricerca dell'elenco",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIRichiestaInterventi"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIAttivitaEsterna"
+              }
+            }
+          }
+        }
+      },
+      "/api/Device/Licenza": {
+        "post": {
+          "tags": [
+            "Device"
+          ],
+          "operationId": "Device_Licenza",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Device",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIDevice"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIDevice"
+              }
+            }
+          }
+        }
+      },
+      "/api/Documenti/Fattura": {
+        "post": {
+          "tags": [
+            "Documenti"
+          ],
+          "operationId": "Documenti_Fattura",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "documento",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIDocumento"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIFattura"
+              }
+            }
+          }
+        }
+      },
+      "/api/Documenti/Fatture": {
+        "post": {
+          "tags": [
+            "Documenti"
+          ],
+          "operationId": "Documenti_Fatture",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "filtro",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIFiltriDocumento"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIFattura"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Emergenza/CreaVisita": {
+        "post": {
+          "tags": [
+            "Emergenza"
+          ],
+          "operationId": "Emergenza_CreaVisita",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Emergenza",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIVisita"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIVisita"
+              }
+            }
+          }
+        }
+      },
+      "/api/PrestazioneDomiciliare/AvvioPrestazione": {
+        "post": {
+          "tags": [
+            "PrestazioneDomiciliare"
+          ],
+          "summary": "Avvio di una prestazione domiciliare.",
+          "operationId": "PrestazioneDomiciliare_AvvioPrestazione",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "intervento",
+              "in": "body",
+              "description": "Dettaglio intervento",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          }
+        }
+      },
+      "/api/PrestazioneDomiciliare/InterrompiPrestazione": {
+        "post": {
+          "tags": [
+            "PrestazioneDomiciliare"
+          ],
+          "summary": "Interrompi la prestazione domiciliare.",
+          "operationId": "PrestazioneDomiciliare_InterrompiPrestazione",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "intervento",
+              "in": "body",
+              "description": "Dettagli di intervento con prestazione da terminare",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          }
+        }
+      },
+      "/api/PrestazioneDomiciliare/CheckPrestazione": {
+        "post": {
+          "tags": [
+            "PrestazioneDomiciliare"
+          ],
+          "summary": "Controllo della prestazione",
+          "operationId": "PrestazioneDomiciliare_CheckPrestazione",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "intervento",
+              "in": "body",
+              "description": "Dettaglio di intervento con prestazione da controllare",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPIInterventoDomiciliare"
+              }
+            }
+          }
+        }
+      },
+      "/api/PrestazioneDomiciliare/InvioParametro": {
+        "post": {
+          "tags": [
+            "PrestazioneDomiciliare"
+          ],
+          "summary": "Salvataggio di un parametro rilevato",
+          "operationId": "PrestazioneDomiciliare_InvioParametro",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Intervento",
+              "in": "body",
+              "description": "Intervento per il quale si effettua la misurazione",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIParametroPrestazione"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "/api/PrestazioneDomiciliare/InvioSetParametri": {
+        "post": {
+          "tags": [
+            "PrestazioneDomiciliare"
+          ],
+          "summary": "Salvataggio di un set di parametri rilevato",
+          "operationId": "PrestazioneDomiciliare_InvioSetParametri",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Interventi",
+              "in": "body",
+              "description": "Intervento per il quale si effettua la misurazione",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIParametroPrestazione"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "/api/PrestazioneDomiciliare/ParametriRilevati": {
+        "post": {
+          "tags": [
+            "PrestazioneDomiciliare"
+          ],
+          "summary": "Elenco dei parametri di un intervento.",
+          "operationId": "PrestazioneDomiciliare_ParametriRilevati",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "richiestaParametri",
+              "in": "body",
+              "description": "Dettaglio di richiesta dei parametri",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIRichiestaParametri"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/DTOAPIParametroPrestazione"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Somministrazione/Planning": {
+        "post": {
+          "tags": [
+            "Somministrazione"
+          ],
+          "operationId": "Somministrazione_Planning",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "Richiesta",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOAPIRichiestaSomministrazioni"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOAPISomministrazioni"
+              }
+            }
+          }
+        }
+      },
+      "/api/finanziaria/anagrafica": {
+        "get": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_GetAnagrafica",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICAnagrafica"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_SetAnagrafica",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "anagrafica",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOSVICAnagrafica"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "/api/finanziaria/reversale": {
+        "get": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_Reversale1",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "anno",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            },
+            {
+              "name": "numero",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICReversaleGETResult"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_Reversale",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "reversale",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOSVICReversalePOST"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICReversalePOSTResult"
+              }
+            }
+          }
+        }
+      },
+      "/api/finanziaria/debitore": {
+        "post": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_Debitore",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "debitore",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOSVICDebitorePOST"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICDebitorePOSTResult"
+              }
+            }
+          }
+        }
+      },
+      "/api/finanziaria/mandato": {
+        "get": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_Mandato",
+          "consumes": [],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "anno",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            },
+            {
+              "name": "numero",
+              "in": "query",
+              "required": true,
+              "type": "integer",
+              "format": "int32"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICMandatoGETResult"
+              }
+            }
+          }
+        }
+      },
+      "/api/finanziaria/mandatodaimpegno": {
+        "post": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_MandatoDaImpegno",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "mandato",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOSVICMandatoImpegnoPOST"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICMandatoPOSTResult"
+              }
+            }
+          }
+        }
+      },
+      "/api/finanziaria/mandatospesafissa": {
+        "post": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_MandatoSpesaFissa",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "mandato",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOSVICMandatoSpesaFissaPOST"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICMandatoPOSTResult"
+              }
+            }
+          }
+        }
+      },
+      "/api/SVIC/Budget": {
+        "post": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_Budget",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "budget",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOSVICBudget"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICBudget"
+              }
+            }
+          }
+        }
+      },
+      "/api/SVIC/Movimentazione": {
+        "post": {
+          "tags": [
+            "SVIC"
+          ],
+          "operationId": "SVIC_Movimentazione",
+          "consumes": [
+            "application/json",
+            "text/json",
+            "text/xml",
+            "application/x-www-form-urlencoded"
+          ],
+          "produces": [
+            "application/json",
+            "text/json",
+            "text/xml"
+          ],
+          "parameters": [
+            {
+              "name": "movimento",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DTOSVICMovimentazione"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/DTOSVICMovimentazione"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "DTOAPIUser": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Guid": {
+            "description": "Richiedi o modifica unique identifier.",
+            "type": "string"
+          },
+          "UserName": {
+            "description": "Richiedi o modifica name of the user.",
+            "type": "string"
+          },
+          "Email": {
+            "description": "Richiedi o modifica email.",
+            "type": "string"
+          },
+          "Password": {
+            "description": "Richiedi o modifica password.",
+            "type": "string"
+          },
+          "Tipologia": {
+            "description": "Richiedi o modifica tipologia.",
+            "type": "string"
+          },
+          "APIKey": {
+            "format": "uuid",
+            "description": "Richiedi o modifica API key.",
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "Nome": {
+            "description": "Richiedi o modifica nome.",
+            "type": "string"
+          },
+          "Cognome": {
+            "description": "Richiedi o modifica cognome.",
+            "type": "string"
+          },
+          "Ruolo": {
+            "description": "Richiedi o modifica ruolo.",
+            "type": "string"
+          },
+          "IDTipologia": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier tipologia.",
+            "type": "integer"
+          },
+          "CodiceFiscale": {
+            "description": "Richiedi o modifica codice fiscale.",
+            "type": "string"
+          },
+          "GuidMedibox": {
+            "description": "Richiedi o modifica unique identifier medibox.",
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPISession": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "GuidSession": {
+            "format": "uuid",
+            "description": "Richiedi o modifica unique identifier session.",
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "Utente": {
+            "$ref": "#/definitions/DTOAPIUser",
+            "description": "Richiedi o modifica utente."
+          },
+          "StartSession": {
+            "format": "date-time",
+            "description": "Richiedi o modifica start session.",
+            "type": "string"
+          },
+          "Expired": {
+            "format": "int32",
+            "description": "Richiedi o modifica expired.",
+            "type": "integer"
+          }
+        }
+      },
+      "UserInfoViewModel": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Email": {
+            "description": "Richiedi o modifica email.",
+            "type": "string"
+          },
+          "HasRegistered": {
+            "description": "Richiedi o modifica un valore che indica this instance has registered.",
+            "type": "boolean"
+          },
+          "LoginProvider": {
+            "description": "Richiedi o modifica login provider.",
+            "type": "string"
+          }
+        }
+      },
+      "ManageInfoViewModel": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "LocalLoginProvider": {
+            "description": "Richiedi o modifica local login provider.",
+            "type": "string"
+          },
+          "Email": {
+            "description": "Richiedi o modifica email.",
+            "type": "string"
+          },
+          "Logins": {
+            "description": "Richiedi o modifica logins.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/UserLoginInfoViewModel"
+            }
+          },
+          "ExternalLoginProviders": {
+            "description": "Richiedi o modifica external login providers.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ExternalLoginViewModel"
+            }
+          }
+        }
+      },
+      "UserLoginInfoViewModel": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "LoginProvider": {
+            "description": "Richiedi o modifica login provider.",
+            "type": "string"
+          },
+          "ProviderKey": {
+            "description": "Richiedi o modifica provider key.",
+            "type": "string"
+          }
+        }
+      },
+      "ExternalLoginViewModel": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Name": {
+            "description": "Richiedi o modifica name.",
+            "type": "string"
+          },
+          "Url": {
+            "description": "Richiedi o modifica URL.",
+            "type": "string"
+          },
+          "State": {
+            "description": "Richiedi o modifica state.",
+            "type": "string"
+          }
+        }
+      },
+      "ChangePasswordBindingModel": {
+        "required": [
+          "OldPassword",
+          "NewPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "OldPassword": {
+            "type": "string"
+          },
+          "NewPassword": {
+            "maxLength": 100,
+            "minLength": 6,
+            "type": "string"
+          },
+          "ConfirmPassword": {
+            "type": "string"
+          }
+        }
+      },
+      "SetPasswordBindingModel": {
+        "required": [
+          "NewPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "NewPassword": {
+            "maxLength": 100,
+            "minLength": 6,
+            "type": "string"
+          },
+          "ConfirmPassword": {
+            "type": "string"
+          }
+        }
+      },
+      "AddExternalLoginBindingModel": {
+        "required": [
+          "ExternalAccessToken"
+        ],
+        "type": "object",
+        "properties": {
+          "ExternalAccessToken": {
+            "type": "string"
+          }
+        }
+      },
+      "RemoveLoginBindingModel": {
+        "required": [
+          "LoginProvider",
+          "ProviderKey"
+        ],
+        "type": "object",
+        "properties": {
+          "LoginProvider": {
+            "type": "string"
+          },
+          "ProviderKey": {
+            "type": "string"
+          }
+        }
+      },
+      "RegisterExternalBindingModel": {
+        "required": [
+          "Email"
+        ],
+        "type": "object",
+        "properties": {
+          "Email": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIInterventoDomiciliare": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "CodicePrestazione": {
+            "description": "Richiedi o modifica codice prestazione.",
+            "type": "string"
+          },
+          "IDOrdineLavoro": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier ordine lavoro.",
+            "type": "integer"
+          },
+          "DataInizio": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data inizio.",
+            "type": "string"
+          },
+          "DataFine": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data fine.",
+            "type": "string"
+          },
+          "MediBox": {
+            "description": "Richiedi o modifica medi box.",
+            "type": "string"
+          },
+          "Room": {
+            "description": "Richiedi o modifica room.",
+            "type": "string"
+          },
+          "IDOperatore": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier operatore.",
+            "type": "integer"
+          },
+          "Attivato": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOAPIInterventoDomiciliare} is attivato.",
+            "type": "boolean"
+          },
+          "AttivitaIntervento": {
+            "$ref": "#/definitions/DTOAPIAttivitaEsterna",
+            "description": "Richiedi o modifica attivita intervento."
+          },
+          "GuidAssistito": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIAttivitaEsterna": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDOrdineLavoro": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier ordine lavoro.",
+            "type": "integer"
+          },
+          "Codice": {
+            "description": "Richiedi o modifica codice.",
+            "type": "string"
+          },
+          "IDTurno": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier turno.",
+            "type": "integer"
+          },
+          "IDSostituzioneTurno": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier sostituzione turno.",
+            "type": "integer"
+          },
+          "DataInizio": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data inizio.",
+            "type": "string"
+          },
+          "DataFine": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data fine.",
+            "type": "string"
+          },
+          "Assistito": {
+            "$ref": "#/definitions/DTOAPIAssistito",
+            "description": "Richiedi o modifica assistito."
+          },
+          "Prestazioni": {
+            "description": "Richiedi o modifica prestazioni.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOAPIPrestazione"
+            }
+          },
+          "Operatore": {
+            "$ref": "#/definitions/DTOAPIOperatore",
+            "description": "Richiedi o modifica operatore."
+          }
+        }
+      },
+      "DTOAPIAssistito": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "GuidAssistito": {
+            "description": "Richiedi o modifica unique identifier assistito.",
+            "type": "string"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "Nome": {
+            "description": "Richiedi o modifica nome.",
+            "type": "string"
+          },
+          "Cognome": {
+            "description": "Richiedi o modifica cognome.",
+            "type": "string"
+          },
+          "CodiceFiscale": {
+            "type": "string"
+          },
+          "DataNascita": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "Sesso": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Comune": {
+            "description": "Richiedi o modifica comune.",
+            "type": "string"
+          },
+          "Indirizzo": {
+            "description": "Richiedi o modifica indirizzo.",
+            "type": "string"
+          },
+          "CAP": {
+            "description": "Richiedi o modifica cap.",
+            "type": "string"
+          },
+          "Anamnesi": {
+            "$ref": "#/definitions/DTOAPIAnamnesi",
+            "description": "Richiedi o modifica anamnesi."
+          },
+          "EsamiObiettivo": {
+            "$ref": "#/definitions/DTOAPIEsamiObiettivo",
+            "description": "Richiedi o modifica esami obiettivo."
+          },
+          "EsamiStrumentali": {
+            "$ref": "#/definitions/DTOAPIEsamiStrumentale",
+            "description": "Richiedi o modifica esami strumentali."
+          },
+          "Prescrizioni": {
+            "$ref": "#/definitions/DTOAPIPrescrizioni",
+            "description": "Richiedi o modifica prescrizioni."
+          },
+          "Somministrazioni": {
+            "$ref": "#/definitions/DTOAPISomministrazioni"
+          },
+          "PrestazioniFisioterapiche": {
+            "$ref": "#/definitions/DTOAPIPrestazioniFisioterapiche",
+            "description": "Richiedi o modifica prestazioni fisioterapiche."
+          },
+          "DiariClinici": {
+            "$ref": "#/definitions/DTOAPIDiarioClinico",
+            "description": "Richiedi o modifica diari clinici."
+          },
+          "BisogniPaziente": {
+            "$ref": "#/definitions/DTOAPIBisogniPaziente",
+            "description": "Richiedi o modifica bisogni paziente."
+          },
+          "ElencoNote": {
+            "$ref": "#/definitions/DTOAPINote",
+            "description": "Richiedi o modifica elenco note."
+          },
+          "Consensi": {
+            "$ref": "#/definitions/DTOAPIConsensi",
+            "description": "Richiedi o modifica consensi."
+          },
+          "Sessione": {
+            "$ref": "#/definitions/DTOAPISession"
+          }
+        }
+      },
+      "DTOAPIPrestazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDPrestazionePAI": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier prestazione pai.",
+            "type": "integer"
+          },
+          "IDPrestazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier prestazione.",
+            "type": "integer"
+          },
+          "Prestazione": {
+            "description": "Richiedi o modifica prestazione.",
+            "type": "string"
+          },
+          "Descrizione": {
+            "description": "Richiedi o modifica descrizione.",
+            "type": "string"
+          },
+          "Durata": {
+            "format": "double",
+            "description": "Richiedi o modifica durata.",
+            "type": "number"
+          }
+        }
+      },
+      "DTOAPIOperatore": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDOperatore": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier operatore.",
+            "type": "integer"
+          },
+          "Nome": {
+            "description": "Richiedi o modifica nome.",
+            "type": "string"
+          },
+          "Cognome": {
+            "description": "Richiedi o modifica cognome.",
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIAnamnesi": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "AnamnesiFamiliare": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOAnamnesiFamiliare"
+            }
+          },
+          "PatologicaProssimaTerapia": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOPatologicaProssimaTerapieInAtto"
+            }
+          },
+          "PatologicaProssimaUlcere": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOPatologicaProssimaUlcereDaPressione"
+            }
+          },
+          "PatologicaRemotaInterventiPregressi": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOPatologicaRemotaInterventiPregressi"
+            }
+          },
+          "PatologicaRemotaMalattie": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOPatologicaRemotaMalattie"
+            }
+          },
+          "PatologicaRemotaRicoveriPregressi": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOPatologicaRemotaRicoveriPregressi"
+            }
+          }
+        }
+      },
+      "DTOAPIEsamiObiettivo": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "EsameObiettivoGenerale": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOEsameObiettivoGenerale"
+            }
+          },
+          "EsameObiettivoRegionale": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOEsameObiettivoRegionale"
+            }
+          }
+        }
+      },
+      "DTOAPIEsamiStrumentale": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "EsameStrumentaleConclusione": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOEsameStrumentaleConclusioneTerapia"
+            }
+          }
+        }
+      },
+      "DTOAPIPrescrizioni": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Prescrizione": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOPrescrizione"
+            }
+          }
+        }
+      },
+      "DTOAPISomministrazioni": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Somministrazione": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOSomministrazione"
+            }
+          }
+        }
+      },
+      "DTOAPIPrestazioniFisioterapiche": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "PrestazioneFisioterapica": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOPrestazione"
+            }
+          }
+        }
+      },
+      "DTOAPIDiarioClinico": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "DiarioClinico": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTODiarioClinico"
+            }
+          }
+        }
+      },
+      "DTOAPIBisogniPaziente": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "BisogniPazienteAliemntazione": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOBisogniPazienteAlimentazione"
+            }
+          },
+          "BisogniPazienteComunicazione": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOBisogniPazienteComunicazione"
+            }
+          },
+          "BisogniPazienteEliminazione": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOBisogniPazienteEliminazione"
+            }
+          },
+          "BisogniPazienteIgiene": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOBisogniPazienteIgiene"
+            }
+          },
+          "BisogniPazienteMobilizzazione": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOBisogniPazienteMobilizzazione"
+            }
+          },
+          "BisogniPazienteSicurezzaSonno": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOBisogniPazienteSicurezzaSonno"
+            }
+          }
+        }
+      },
+      "DTOAPINote": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Note": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DTOAPIConsensi": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Consenso": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DTOAnamnesiFamiliare": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDAnamnesiFamiliare": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier anamnesi familiare.",
+            "type": "integer"
+          },
+          "NegaPresenzaPatologia": {
+            "description": "Richiedi o modifica un valore che indica [nega presenza patologia].",
+            "type": "boolean"
+          },
+          "IDParentela": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier parentela.",
+            "type": "integer"
+          },
+          "IDDiagnosi": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier diagnosi.",
+            "type": "integer"
+          },
+          "Deceduto": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOAnamnesiFamiliare} is deceduto.",
+            "type": "boolean"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "Eta": {
+            "format": "int32",
+            "description": "Richiedi o modifica eta.",
+            "type": "integer"
+          },
+          "IDEreditarieta": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier ereditarieta.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOPatologicaProssimaTerapieInAtto": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "NessunFarmaco": {
+            "description": "Richiedi o modifica un valore che indica [nessun farmaco].",
+            "type": "boolean"
+          },
+          "IDFarmaco": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Quantita": {
+            "description": "Richiedi o modifica quantita.",
+            "type": "string"
+          },
+          "FrequenzaAssunzione": {
+            "format": "int32",
+            "description": "Richiedi o modifica frequenza assunzione.",
+            "type": "integer"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDPatologicaProssimaTerapieInAtto": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier patologica prossima terapie in atto.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOPatologicaProssimaUlcereDaPressione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "Sede": {
+            "description": "Richiedi o modifica sede.",
+            "type": "string"
+          },
+          "IDGrado": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier grado.",
+            "type": "integer"
+          },
+          "Medicazione": {
+            "description": "Richiedi o modifica medicazione.",
+            "type": "string"
+          },
+          "IDPatologicaProssimaUlcereDaPressione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier patologica prossima ulcere da pressione.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOPatologicaRemotaInterventiPregressi": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "NegaIntervento": {
+            "description": "Richiedi o modifica un valore che indica [nega intervento].",
+            "type": "boolean"
+          },
+          "Intervento": {
+            "description": "Richiedi o modifica intervento.",
+            "type": "string"
+          },
+          "DataIntervento": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data intervento.",
+            "type": "string"
+          },
+          "Eta": {
+            "format": "double",
+            "description": "Richiedi o modifica eta.",
+            "type": "number"
+          },
+          "Patologia": {
+            "description": "Richiedi o modifica patologia.",
+            "type": "string"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDPatologicaRemotaInterventiPregressi": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier patologica remota interventi pregressi.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOPatologicaRemotaMalattie": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "Diagnosi": {
+            "description": "Richiedi o modifica diagnosi.",
+            "type": "string"
+          },
+          "IDStatoMalattia": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier stato malattia.",
+            "type": "integer"
+          },
+          "EtaMalattia": {
+            "format": "double",
+            "description": "Richiedi o modifica eta malattia.",
+            "type": "number"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDPatologicaRemotaMalattie": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier patologica remota malattie.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOPatologicaRemotaRicoveriPregressi": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "DataRicovero": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data ricovero.",
+            "type": "string"
+          },
+          "UnitaOspedaliera": {
+            "description": "Richiedi o modifica unita ospedaliera.",
+            "type": "string"
+          },
+          "Ospedale": {
+            "description": "Richiedi o modifica ospedale.",
+            "type": "string"
+          },
+          "IDPatologicaRemotaRicoveriPregressi": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier patologica remota ricoveri pregressi.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOEsameObiettivoGenerale": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "DataVisita": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data visita.",
+            "type": "string"
+          },
+          "Altezza": {
+            "format": "double",
+            "description": "Richiedi o modifica altezza.",
+            "type": "number"
+          },
+          "Peso": {
+            "format": "double",
+            "description": "Richiedi o modifica peso.",
+            "type": "number"
+          },
+          "BMI": {
+            "format": "double",
+            "description": "Richiedi o modifica bmi.",
+            "type": "number"
+          },
+          "StatoNutrizione": {
+            "description": "Richiedi o modifica stato nutrizione.",
+            "type": "string"
+          },
+          "CirconferenzaAddominale": {
+            "format": "double",
+            "description": "Richiedi o modifica circonferenza addominale.",
+            "type": "number"
+          },
+          "Temperatura": {
+            "format": "double",
+            "description": "Richiedi o modifica temperatura.",
+            "type": "number"
+          },
+          "IDLocalizzazioneTemperatura": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier localizzazione temperatura.",
+            "type": "integer"
+          },
+          "PASistolica": {
+            "format": "double",
+            "description": "Richiedi o modifica pa sistolica.",
+            "type": "number"
+          },
+          "PADiastolica": {
+            "format": "double",
+            "description": "Richiedi o modifica pa diastolica.",
+            "type": "number"
+          },
+          "FreqRespiro": {
+            "format": "double",
+            "description": "Richiedi o modifica freq respiro.",
+            "type": "number"
+          },
+          "FreqCardiaca": {
+            "format": "double",
+            "description": "Richiedi o modifica freq cardiaca.",
+            "type": "number"
+          },
+          "IDStatoGenerale": {
+            "description": "Richiedi o modifica identifier stato generale.",
+            "type": "string"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDEsameObiettivoGenerale": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier esame obiettivo generale.",
+            "type": "integer"
+          },
+          "IDDecubito": {
+            "description": "Richiedi o modifica identifier decubito.",
+            "type": "string"
+          },
+          "IDMucose": {
+            "description": "Richiedi o modifica identifier mucose.",
+            "type": "string"
+          },
+          "IDMasseMuscolari": {
+            "description": "Richiedi o modifica identifier masse muscolari.",
+            "type": "string"
+          },
+          "IDPolso": {
+            "description": "Richiedi o modifica identifier polso.",
+            "type": "string"
+          },
+          "IDStatoPsichico": {
+            "description": "Richiedi o modifica identifier stato psichico.",
+            "type": "string"
+          },
+          "IDCute": {
+            "description": "Richiedi o modifica identifier cute.",
+            "type": "string"
+          },
+          "IDSottocute": {
+            "description": "Richiedi o modifica identifier sottocute.",
+            "type": "string"
+          },
+          "IDLingua": {
+            "description": "Richiedi o modifica identifier lingua.",
+            "type": "string"
+          },
+          "IDRespiro": {
+            "description": "Richiedi o modifica identifier respiro.",
+            "type": "string"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOEsameObiettivoRegionale": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDEsameObiettivoRegionale": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier esame obiettivo regionale.",
+            "type": "integer"
+          },
+          "IDMVPolmoneDestro": {
+            "description": "Richiedi o modifica idmv polmone destro.",
+            "type": "string"
+          },
+          "IDFVTPolmoneDestro": {
+            "description": "Richiedi o modifica idfvt polmone destro.",
+            "type": "string"
+          },
+          "IDPercussionePolmoneDestro": {
+            "description": "Richiedi o modifica identifier percussione polmone destro.",
+            "type": "string"
+          },
+          "IDRumoriPatologiciPolmoneDestro": {
+            "description": "Richiedi o modifica identifier rumori patologici polmone destro.",
+            "type": "string"
+          },
+          "IDSedePolmoneDestro": {
+            "description": "Richiedi o modifica identifier sede polmone destro.",
+            "type": "string"
+          },
+          "IDMVPolmoneSinistro": {
+            "description": "Richiedi o modifica idmv polmone sinistro.",
+            "type": "string"
+          },
+          "IDFVTPolmoneSinistro": {
+            "description": "Richiedi o modifica idfvt polmone sinistro.",
+            "type": "string"
+          },
+          "IDPercussionePolmoneSinistro": {
+            "description": "Richiedi o modifica identifier percussione polmone sinistro.",
+            "type": "string"
+          },
+          "IDRumoriPatologiciPolmoneSinistro": {
+            "description": "Richiedi o modifica identifier rumori patologici polmone sinistro.",
+            "type": "string"
+          },
+          "IDSedePolmoneSinistro": {
+            "description": "Richiedi o modifica identifier sede polmone sinistro.",
+            "type": "string"
+          },
+          "IDTono": {
+            "description": "Richiedi o modifica identifier tono.",
+            "type": "string"
+          },
+          "IDSoffi": {
+            "description": "Richiedi o modifica identifier soffi.",
+            "type": "string"
+          },
+          "IDApparatoUrogenitale": {
+            "description": "Richiedi o modifica identifier apparato urogenitale.",
+            "type": "string"
+          },
+          "IDAddome": {
+            "description": "Richiedi o modifica identifier addome.",
+            "type": "string"
+          },
+          "IDOcchi": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "IDVista": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NoteVista": {
+            "type": "string"
+          },
+          "IDCavoOrale": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Orecchio": {
+            "type": "string"
+          },
+          "IDUdito": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NoteUdito": {
+            "type": "string"
+          },
+          "IDCollo": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "SistemaArterioso": {
+            "type": "string"
+          },
+          "SistemaVenosoLinfatico": {
+            "type": "string"
+          },
+          "ApparatoMuscoloScheletrico": {
+            "type": "string"
+          },
+          "AlterazionePodologica": {
+            "type": "string"
+          },
+          "IDTonoSistemaNervoso": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NoteTonoSistemaNervoso": {
+            "type": "string"
+          },
+          "IDMovimenti": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOEsameStrumentaleConclusioneTerapia": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDConclusioneTerapia": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier conclusione terapia.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NoteConclusioni": {
+            "description": "Richiedi o modifica note conclusioni.",
+            "type": "string"
+          },
+          "Conclusioni": {
+            "description": "Richiedi o modifica conclusioni.",
+            "type": "string"
+          },
+          "ConsigliTerapia": {
+            "description": "Richiedi o modifica consigli terapia.",
+            "type": "string"
+          },
+          "IDReferto": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOPrescrizione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDFarmaco": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier farmaco.",
+            "type": "integer"
+          },
+          "Farmaco": {
+            "type": "string"
+          },
+          "IDUnita": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier unita.",
+            "type": "integer"
+          },
+          "IDModalitaSomministrazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier modalita somministrazione.",
+            "type": "integer"
+          },
+          "IDViaSomministrazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier via somministrazione.",
+            "type": "integer"
+          },
+          "InizioTerapia": {
+            "format": "date-time",
+            "description": "Richiedi o modifica inizio terapia.",
+            "type": "string"
+          },
+          "FineTerapia": {
+            "format": "date-time",
+            "description": "Richiedi o modifica fine terapia.",
+            "type": "string"
+          },
+          "DurataTerapia": {
+            "format": "int32",
+            "description": "Richiedi o modifica durata terapia.",
+            "type": "integer"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDPrescrizione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier prescrizione.",
+            "type": "integer"
+          },
+          "IDModalitaOraSomministrazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier modalita ora somministrazione.",
+            "type": "integer"
+          },
+          "Modelli": {
+            "description": "Richiedi o modifica modelli.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOItemPrescrizione"
+            }
+          },
+          "SomministrazioneColazione": {
+            "description": "Richiedi o modifica somministrazione colazione.",
+            "type": "boolean"
+          },
+          "Somministrato": {
+            "type": "boolean"
+          },
+          "OraColazione": {
+            "format": "date-time",
+            "description": "Richiedi o modifica ora colazione.",
+            "type": "string"
+          },
+          "SomministrazionePranzo": {
+            "description": "Richiedi o modifica somministrazione pranzo.",
+            "type": "boolean"
+          },
+          "OraPranzo": {
+            "format": "date-time",
+            "description": "Richiedi o modifica ora pranzo.",
+            "type": "string"
+          },
+          "SomministrazioneCena": {
+            "description": "Richiedi o modifica somministrazione cena.",
+            "type": "boolean"
+          },
+          "OraCena": {
+            "format": "date-time",
+            "description": "Richiedi o modifica ora cena.",
+            "type": "string"
+          },
+          "OraInizio": {
+            "format": "date-time",
+            "description": "Richiedi o modifica ora inizio.",
+            "type": "string"
+          },
+          "OraFine": {
+            "format": "date-time",
+            "description": "Richiedi o modifica ora fine.",
+            "type": "string"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Assistito": {
+            "$ref": "#/definitions/DTOAPIAssistito"
+          }
+        }
+      },
+      "DTOSomministrazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDSomministrazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier somministrazione.",
+            "type": "integer"
+          },
+          "Prescrizione": {
+            "$ref": "#/definitions/DTOPrescrizione",
+            "description": "Richiedi o modifica prescrizione."
+          },
+          "ModelliParziali": {
+            "description": "Richiedi o modifica modelli parziali.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOModelloParziale"
+            }
+          }
+        }
+      },
+      "DTOPrestazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDPrestazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier prestazione.",
+            "type": "integer"
+          },
+          "IDPrestazionePlanning": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier prestazione planning.",
+            "type": "integer"
+          },
+          "IDEquipe": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier equipe.",
+            "type": "integer"
+          },
+          "IDPai": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier pai.",
+            "type": "integer"
+          },
+          "IDFrequenza": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Durata": {
+            "format": "float",
+            "description": "Richiedi o modifica durata.",
+            "type": "number"
+          },
+          "Codice": {
+            "description": "Richiedi o modifica codice.",
+            "type": "string"
+          },
+          "Descrizione": {
+            "description": "Richiedi o modifica descrizione.",
+            "type": "string"
+          },
+          "Assistito": {
+            "description": "Richiedi o modifica assistito.",
+            "type": "string"
+          },
+          "InizioPrestazione": {
+            "format": "date-time",
+            "description": "Richiedi o modifica inizio prestazione.",
+            "type": "string"
+          },
+          "FinePrestazione": {
+            "format": "date-time",
+            "description": "Richiedi o modifica fine prestazione.",
+            "type": "string"
+          },
+          "NotePrestazione": {
+            "description": "Richiedi o modifica note prestazione.",
+            "type": "string"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "DurataPrestazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica durata prestazione.",
+            "type": "integer"
+          },
+          "IDModalitaOraPrestazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier modalita ora prestazione.",
+            "type": "integer"
+          },
+          "Modelli": {
+            "description": "Richiedi o modifica modelli.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOItemPrestazioni"
+            }
+          },
+          "Effettuata": {
+            "type": "boolean"
+          },
+          "ModelliParziali": {
+            "description": "Richiedi o modifica modelli parziali.",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOModelloParziale"
+            }
+          },
+          "NoteTipologiaAccessi": {
+            "type": "string"
+          },
+          "StrutturaErogante": {
+            "type": "string"
+          }
+        }
+      },
+      "DTODiarioClinico": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "ValidoDa": {
+            "format": "date-time",
+            "description": "Richiedi o modifica valido da.",
+            "type": "string"
+          },
+          "ValidoA": {
+            "format": "date-time",
+            "description": "Richiedi o modifica valido a.",
+            "type": "string"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDDiarioClinico": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier diario clinico.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Priorita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOBisogniPazienteAlimentazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "AssenzaAlimentazione": {
+            "description": "Richiedi o modifica un valore che indica [assenza alimentazione].",
+            "type": "boolean"
+          },
+          "AlimentazioneOrale": {
+            "description": "Richiedi o modifica un valore che indica [alimentazione orale].",
+            "type": "boolean"
+          },
+          "AusiliAlimentazione": {
+            "description": "Richiedi o modifica un valore che indica [ausili alimentazione].",
+            "type": "boolean"
+          },
+          "Imboccato": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteAlimentazione} is imboccato.",
+            "type": "boolean"
+          },
+          "DietaSpecifica": {
+            "description": "Richiedi o modifica un valore che indica [dieta specifica].",
+            "type": "boolean"
+          },
+          "DietaSbilanciata": {
+            "description": "Richiedi o modifica un valore che indica [dieta sbilanciata].",
+            "type": "boolean"
+          },
+          "Ematemesi": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteAlimentazione} is ematemesi.",
+            "type": "boolean"
+          },
+          "Meteorismo": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteAlimentazione} is meteorismo.",
+            "type": "boolean"
+          },
+          "ProtesiDentaria": {
+            "description": "Richiedi o modifica un valore che indica [protesi dentaria].",
+            "type": "boolean"
+          },
+          "NutrizioneParentale": {
+            "description": "Richiedi o modifica un valore che indica [nutrizione parentale].",
+            "type": "boolean"
+          },
+          "NutrizioneEnterale": {
+            "description": "Richiedi o modifica un valore che indica [nutrizione enterale].",
+            "type": "boolean"
+          },
+          "Melena": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteAlimentazione} is melena.",
+            "type": "boolean"
+          },
+          "Sondino": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteAlimentazione} is sondino.",
+            "type": "boolean"
+          },
+          "RifiutoCibo": {
+            "description": "Richiedi o modifica un valore che indica [rifiuto cibo].",
+            "type": "boolean"
+          },
+          "CaloPonderale": {
+            "description": "Richiedi o modifica un valore che indica [calo ponderale].",
+            "type": "boolean"
+          },
+          "IDGastrectomia": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier gastrectomia.",
+            "type": "integer"
+          },
+          "IDDiabete": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier diabete.",
+            "type": "integer"
+          },
+          "IntolleranzeAlimentari": {
+            "description": "Richiedi o modifica intolleranze alimentari.",
+            "type": "string"
+          },
+          "ImpedimentoAlimentazione": {
+            "description": "Richiedi o modifica impedimento alimentazione.",
+            "type": "string"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAnalisiBisogniAlimentazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier analisi bisogni alimentazione.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOBisogniPazienteComunicazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "AssenzaComunicazione": {
+            "description": "Richiedi o modifica un valore che indica [assenza comunicazione].",
+            "type": "boolean"
+          },
+          "DisturbiUditivi": {
+            "description": "Richiedi o modifica un valore che indica [disturbi uditivi].",
+            "type": "boolean"
+          },
+          "DifficoltaComunicazione": {
+            "description": "Richiedi o modifica un valore che indica [difficolta comunicazione].",
+            "type": "boolean"
+          },
+          "Sordomutismo": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteComunicazione} is sordomutismo.",
+            "type": "boolean"
+          },
+          "SensorioObnubilato": {
+            "description": "Richiedi o modifica un valore che indica [sensorio obnubilato].",
+            "type": "boolean"
+          },
+          "Trachestomia": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteComunicazione} is trachestomia.",
+            "type": "boolean"
+          },
+          "CecitaBilaterale": {
+            "description": "Richiedi o modifica un valore che indica [cecita bilaterale].",
+            "type": "boolean"
+          },
+          "StatoSoporoso": {
+            "description": "Richiedi o modifica un valore che indica [stato soporoso].",
+            "type": "boolean"
+          },
+          "PortatoreLenti": {
+            "description": "Richiedi o modifica un valore che indica [portatore lenti].",
+            "type": "boolean"
+          },
+          "StatoComa": {
+            "description": "Richiedi o modifica un valore che indica [stato coma].",
+            "type": "boolean"
+          },
+          "Glaucoma": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteComunicazione} is glaucoma.",
+            "type": "boolean"
+          },
+          "MancanzaConoscenzaMalattia": {
+            "description": "Richiedi o modifica un valore che indica [mancanza conoscenza malattia].",
+            "type": "boolean"
+          },
+          "Congiuntivite": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteComunicazione} is congiuntivite.",
+            "type": "boolean"
+          },
+          "PreoccupazioneStato": {
+            "description": "Richiedi o modifica un valore che indica [preoccupazione stato].",
+            "type": "boolean"
+          },
+          "Otalgie": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteComunicazione} is otalgie.",
+            "type": "boolean"
+          },
+          "RapportoDifficileParenti": {
+            "description": "Richiedi o modifica un valore che indica [rapporto difficile parenti].",
+            "type": "boolean"
+          },
+          "SorditaBilaterale": {
+            "description": "Richiedi o modifica un valore che indica [sordita bilaterale].",
+            "type": "boolean"
+          },
+          "PreoccupazioneLavoro": {
+            "description": "Richiedi o modifica un valore che indica [preoccupazione lavoro].",
+            "type": "boolean"
+          },
+          "ProtesiFonetica": {
+            "description": "Richiedi o modifica un valore che indica [protesi fonetica].",
+            "type": "boolean"
+          },
+          "Tossicodipendenza": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteComunicazione} is tossicodipendenza.",
+            "type": "boolean"
+          },
+          "ProtesiAcustica": {
+            "description": "Richiedi o modifica un valore che indica [protesi acustica].",
+            "type": "boolean"
+          },
+          "Alcoldipendenza": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteComunicazione} is alcoldipendenza.",
+            "type": "boolean"
+          },
+          "DisturbiLinguaggio": {
+            "description": "Richiedi o modifica un valore che indica [disturbi linguaggio].",
+            "type": "boolean"
+          },
+          "StatiPsicologici": {
+            "description": "Richiedi o modifica stati psicologici.",
+            "type": "string"
+          },
+          "AlterazioneUmore": {
+            "description": "Richiedi o modifica alterazione umore.",
+            "type": "string"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAnalisiBisogniComunicazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier analisi bisogni comunicazione.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOBisogniPazienteEliminazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "AnoPreternaturale": {
+            "description": "Richiedi o modifica un valore che indica [ano preternaturale].",
+            "type": "boolean"
+          },
+          "Proctorragia": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteEliminazione} is proctorragia.",
+            "type": "boolean"
+          },
+          "CaterismoIntermittente": {
+            "description": "Richiedi o modifica un valore che indica [caterismo intermittente].",
+            "type": "boolean"
+          },
+          "RitenzioneUrinaria": {
+            "description": "Richiedi o modifica un valore che indica [ritenzione urinaria].",
+            "type": "boolean"
+          },
+          "CatetereVescicale": {
+            "description": "Richiedi o modifica un valore che indica [catetere vescicale].",
+            "type": "boolean"
+          },
+          "Stipsi": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteEliminazione} is stipsi.",
+            "type": "boolean"
+          },
+          "DoloriAddominali": {
+            "description": "Richiedi o modifica un valore che indica [dolori addominali].",
+            "type": "boolean"
+          },
+          "TenesmoRettale": {
+            "description": "Richiedi o modifica un valore che indica [tenesmo rettale].",
+            "type": "boolean"
+          },
+          "DrenaggioTranscutaneo": {
+            "description": "Richiedi o modifica un valore che indica [drenaggio transcutaneo].",
+            "type": "boolean"
+          },
+          "TenesmoVescicale": {
+            "description": "Richiedi o modifica un valore che indica [tenesmo vescicale].",
+            "type": "boolean"
+          },
+          "Ematuria": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteEliminazione} is ematuria.",
+            "type": "boolean"
+          },
+          "Ureterostomie": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteEliminazione} is ureterostomie.",
+            "type": "boolean"
+          },
+          "IDIncontinenzaFecale": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier incontinenza fecale.",
+            "type": "integer"
+          },
+          "IDIncontenenzaUrinaria": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier incontenenza urinaria.",
+            "type": "integer"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAnalisiBisogniEliminazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier analisi bisogni eliminazione.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOBisogniPazienteIgiene": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "AiutoIgiene": {
+            "description": "Richiedi o modifica un valore che indica [aiuto igiene].",
+            "type": "boolean"
+          },
+          "StrumentiIgiene": {
+            "description": "Richiedi o modifica un valore che indica [strumenti igiene].",
+            "type": "boolean"
+          },
+          "AiutoBagno": {
+            "description": "Richiedi o modifica un valore che indica [aiuto bagno].",
+            "type": "boolean"
+          },
+          "BagnoLetto": {
+            "description": "Richiedi o modifica un valore che indica [bagno letto].",
+            "type": "boolean"
+          },
+          "AiutoVestizione": {
+            "description": "Richiedi o modifica un valore che indica [aiuto vestizione].",
+            "type": "boolean"
+          },
+          "PiagheDecubito": {
+            "description": "Richiedi o modifica un valore che indica [piaghe decubito].",
+            "type": "boolean"
+          },
+          "AiutoDoccia": {
+            "description": "Richiedi o modifica un valore che indica [aiuto doccia].",
+            "type": "boolean"
+          },
+          "AiutoShampoo": {
+            "description": "Richiedi o modifica un valore che indica [aiuto shampoo].",
+            "type": "boolean"
+          },
+          "AiutoPediluvio": {
+            "description": "Richiedi o modifica un valore che indica [aiuto pediluvio].",
+            "type": "boolean"
+          },
+          "AiutoEstetico": {
+            "description": "Richiedi o modifica un valore che indica [aiuto estetico].",
+            "type": "boolean"
+          },
+          "IgieneCatetere": {
+            "description": "Richiedi o modifica un valore che indica [igiene catetere].",
+            "type": "boolean"
+          },
+          "IgieneStormie": {
+            "description": "Richiedi o modifica un valore che indica [igiene stormie].",
+            "type": "boolean"
+          },
+          "IgieneIncontinenza": {
+            "description": "Richiedi o modifica un valore che indica [igiene incontinenza].",
+            "type": "boolean"
+          },
+          "Ustioni": {
+            "description": "Richiedi o modifica ustioni.",
+            "type": "string"
+          },
+          "Ferite": {
+            "description": "Richiedi o modifica ferite.",
+            "type": "string"
+          },
+          "MalattiePelle": {
+            "description": "Richiedi o modifica malattie pelle.",
+            "type": "string"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAnalisiBisogniIgiene": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier analisi bisogni igiene.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOBisogniPazienteMobilizzazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "AusilioLetto": {
+            "description": "Richiedi o modifica un valore che indica [ausilio letto].",
+            "type": "boolean"
+          },
+          "AiutoSeduta": {
+            "description": "Richiedi o modifica un valore che indica [aiuto seduta].",
+            "type": "boolean"
+          },
+          "MovimentiVolontari": {
+            "description": "Richiedi o modifica un valore che indica [movimenti volontari].",
+            "type": "boolean"
+          },
+          "RotazioneCorpo": {
+            "description": "Richiedi o modifica un valore che indica [rotazione corpo].",
+            "type": "boolean"
+          },
+          "AiutoDeambulazione": {
+            "description": "Richiedi o modifica un valore che indica [aiuto deambulazione].",
+            "type": "boolean"
+          },
+          "PermanenzaLettoForzata": {
+            "description": "Richiedi o modifica un valore che indica [permanenza letto forzata].",
+            "type": "boolean"
+          },
+          "DisabileAllettato": {
+            "description": "Richiedi o modifica un valore che indica [disabile allettato].",
+            "type": "boolean"
+          },
+          "MobilizzazioneStrumenti": {
+            "description": "Richiedi o modifica un valore che indica [mobilizzazione strumenti].",
+            "type": "boolean"
+          },
+          "LesioniOssee": {
+            "description": "Richiedi o modifica un valore che indica [lesioni ossee].",
+            "type": "boolean"
+          },
+          "LombagiaAcuta": {
+            "description": "Richiedi o modifica un valore che indica [lombagia acuta].",
+            "type": "boolean"
+          },
+          "CervicoalgiaAcuta": {
+            "description": "Richiedi o modifica un valore che indica [cervicoalgia acuta].",
+            "type": "boolean"
+          },
+          "Paraplegia": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteMobilizzazione} is paraplegia.",
+            "type": "boolean"
+          },
+          "Emiplegia": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteMobilizzazione} is emiplegia.",
+            "type": "boolean"
+          },
+          "Tetraplegia": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteMobilizzazione} is tetraplegia.",
+            "type": "boolean"
+          },
+          "IDAmputazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier amputazione.",
+            "type": "integer"
+          },
+          "NoteAmputazione": {
+            "description": "Richiedi o modifica note amputazione.",
+            "type": "string"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAnalisiBisogniMobilizzazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier analisi bisogni mobilizzazione.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOBisogniPazienteSicurezzaSonno": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "AlterazioneSonno": {
+            "description": "Richiedi o modifica un valore che indica [alterazione sonno].",
+            "type": "boolean"
+          },
+          "AllettatoConSponde": {
+            "description": "Richiedi o modifica un valore che indica [allettato con sponde].",
+            "type": "boolean"
+          },
+          "RischioInfezione": {
+            "description": "Richiedi o modifica un valore che indica [rischio infezione].",
+            "type": "boolean"
+          },
+          "Insonnia": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteSicurezzaSonno} is insonnia.",
+            "type": "boolean"
+          },
+          "InfezioneInAtto": {
+            "description": "Richiedi o modifica un valore che indica [infezione in atto].",
+            "type": "boolean"
+          },
+          "Agitazione": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteSicurezzaSonno} is agitazione.",
+            "type": "boolean"
+          },
+          "MalattiaContagiosa": {
+            "description": "Richiedi o modifica un valore che indica [malattia contagiosa].",
+            "type": "boolean"
+          },
+          "Defedamento": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteSicurezzaSonno} is defedamento.",
+            "type": "boolean"
+          },
+          "Sovrappeso": {
+            "description": "Richiedi o modifica un valore che indica this {MediHomeCloudServer.Models.DTOBisogniPazienteSicurezzaSonno} is sovrappeso.",
+            "type": "boolean"
+          },
+          "RischioCaduta": {
+            "description": "Richiedi o modifica un valore che indica [rischio caduta].",
+            "type": "boolean"
+          },
+          "Note": {
+            "description": "Richiedi o modifica note.",
+            "type": "string"
+          },
+          "IDAnalisiBisogniSicurezzaSonno": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier analisi bisogni sicurezza sonno.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "IDVisita": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOItemPrescrizione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDItemPrescrizione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier item prescrizione.",
+            "type": "integer"
+          },
+          "IDPrescrizione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier prescrizione.",
+            "type": "integer"
+          },
+          "TimeStart": {
+            "format": "date-time",
+            "description": "Richiedi o modifica time start.",
+            "type": "string"
+          },
+          "TimeEnd": {
+            "format": "date-time",
+            "description": "Richiedi o modifica time end.",
+            "type": "string"
+          },
+          "Lunedi": {
+            "description": "Richiedi o modifica lunedi.",
+            "type": "boolean"
+          },
+          "Martedi": {
+            "description": "Richiedi o modifica martedi.",
+            "type": "boolean"
+          },
+          "Mercoledi": {
+            "description": "Richiedi o modifica mercoledi.",
+            "type": "boolean"
+          },
+          "Giovedi": {
+            "description": "Richiedi o modifica giovedi.",
+            "type": "boolean"
+          },
+          "Venerdi": {
+            "description": "Richiedi o modifica venerdi.",
+            "type": "boolean"
+          },
+          "Sabato": {
+            "description": "Richiedi o modifica sabato.",
+            "type": "boolean"
+          },
+          "Domenica": {
+            "description": "Richiedi o modifica domenica.",
+            "type": "boolean"
+          }
+        }
+      },
+      "DTOModelloParziale": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "TimeStart": {
+            "format": "date-time",
+            "description": "Richiedi o modifica time start.",
+            "type": "string"
+          },
+          "TimeEnd": {
+            "format": "date-time",
+            "description": "Richiedi o modifica time end.",
+            "type": "string"
+          },
+          "Settimana": {
+            "description": "Richiedi o modifica settimana.",
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          "GGSettimana": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOItemPrestazioni": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDItemPrestazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier item prestazione.",
+            "type": "integer"
+          },
+          "IDPrestazione": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier prestazione.",
+            "type": "integer"
+          },
+          "TimeStart": {
+            "format": "date-time",
+            "description": "Richiedi o modifica time start.",
+            "type": "string"
+          },
+          "TimeEnd": {
+            "format": "date-time",
+            "description": "Richiedi o modifica time end.",
+            "type": "string"
+          },
+          "Lunedi": {
+            "description": "Richiedi o modifica lunedi.",
+            "type": "boolean"
+          },
+          "Martedi": {
+            "description": "Richiedi o modifica martedi.",
+            "type": "boolean"
+          },
+          "Mercoledi": {
+            "description": "Richiedi o modifica mercoledi.",
+            "type": "boolean"
+          },
+          "Giovedi": {
+            "description": "Richiedi o modifica giovedi.",
+            "type": "boolean"
+          },
+          "Venerdi": {
+            "description": "Richiedi o modifica venerdi.",
+            "type": "boolean"
+          },
+          "Sabato": {
+            "description": "Richiedi o modifica sabato.",
+            "type": "boolean"
+          },
+          "Domenica": {
+            "description": "Richiedi o modifica domenica.",
+            "type": "boolean"
+          }
+        }
+      },
+      "DTOAPIParametroPrestazione": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDParametro": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier parametro.",
+            "type": "integer"
+          },
+          "GUIDPrestazione": {
+            "description": "Richiedi o modifica unique identifier prestazione.",
+            "type": "string"
+          },
+          "DataRilevazione": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data rilevazione.",
+            "type": "string"
+          },
+          "IDTipoDispositivo": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier tipo dispositivo.",
+            "type": "integer"
+          },
+          "IDTipoDato": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier tipo dato.",
+            "type": "integer"
+          },
+          "Valore": {
+            "description": "Richiedi o modifica valore.",
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIRichiestaParametri": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "GUIDPrestazione": {
+            "description": "Richiedi o modifica unique identifier prestazione.",
+            "type": "string"
+          },
+          "IDUltimoParametro": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier ultimo parametro.",
+            "type": "integer"
+          },
+          "IDTipologiaDispositivo": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier tipologia dispositivo.",
+            "type": "integer"
+          },
+          "IDTipologiaDato": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier tipologia dato.",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOAPIRichiestaInterventi": {
+        "description": "",
+        "type": "object",
+        "properties": {
+          "IDOperatore": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier operatore.",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "description": "Richiedi o modifica identifier assistito.",
+            "type": "integer"
+          },
+          "GUIDMedibox": {
+            "description": "Richiedi o modifica unique identifier medibox.",
+            "type": "string"
+          },
+          "DataRiferimento": {
+            "format": "date-time",
+            "description": "Richiedi o modifica data riferimento.",
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIDevice": {
+        "type": "object",
+        "properties": {
+          "GUID_Device": {
+            "type": "string"
+          },
+          "MAC_Address": {
+            "type": "string"
+          },
+          "APIKey": {
+            "format": "uuid",
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          },
+          "Messaggio": {
+            "type": "string"
+          },
+          "Stato": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Licenza": {
+            "$ref": "#/definitions/DTOAPILicenza"
+          }
+        }
+      },
+      "DTOAPILicenza": {
+        "type": "object",
+        "properties": {
+          "Data_Attivazione": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "Tipologia_Licenza": {
+            "type": "string"
+          },
+          "Url_Riferimento": {
+            "type": "string"
+          },
+          "APIKey_Licensed": {
+            "format": "uuid",
+            "type": "string",
+            "example": "00000000-0000-0000-0000-000000000000"
+          }
+        }
+      },
+      "DTOAPIDocumento": {
+        "type": "object",
+        "properties": {
+          "CodiceDocumento": {
+            "type": "string"
+          },
+          "Sessione": {
+            "$ref": "#/definitions/DTOAPISession"
+          }
+        }
+      },
+      "DTOAPIFattura": {
+        "type": "object",
+        "properties": {
+          "DataFatturazione": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "DataCreazione": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "CategoriaDocumento": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          },
+          "CodiceDocumento": {
+            "type": "string"
+          },
+          "Mittente": {
+            "$ref": "#/definitions/DTOAPIAzienda"
+          },
+          "Destinatario": {
+            "$ref": "#/definitions/DTOAPIAzienda"
+          },
+          "ItemFattura": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOAPIFatturaItem"
+            }
+          },
+          "SubTotale": {
+            "format": "double",
+            "type": "number"
+          },
+          "TotaleIva": {
+            "format": "double",
+            "type": "number"
+          },
+          "TotaleSconto": {
+            "format": "double",
+            "type": "number"
+          },
+          "Totale": {
+            "format": "double",
+            "type": "number"
+          },
+          "Note": {
+            "type": "string"
+          },
+          "StatoPagamento": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          },
+          "TipologiaPagamento": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          },
+          "CondizioniPagamento": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          },
+          "Assistito": {
+            "$ref": "#/definitions/DTOAPIAnagrafica"
+          }
+        }
+      },
+      "DTOAPICategoria": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Categoria": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIAzienda": {
+        "type": "object",
+        "properties": {
+          "RagioneSociale": {
+            "type": "string"
+          },
+          "CodiceAzienda": {
+            "type": "string"
+          },
+          "PartitaIva": {
+            "type": "string"
+          },
+          "CodiceFiscale": {
+            "type": "string"
+          },
+          "Indirizzo": {
+            "type": "string"
+          },
+          "PEC": {
+            "type": "string"
+          },
+          "Email": {
+            "type": "string"
+          },
+          "Comune": {
+            "type": "string"
+          },
+          "Provincia": {
+            "type": "string"
+          },
+          "CAP": {
+            "type": "string"
+          },
+          "SedeRiferimento": {
+            "type": "string"
+          },
+          "Categoria": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          }
+        }
+      },
+      "DTOAPIFatturaItem": {
+        "type": "object",
+        "properties": {
+          "Prodotto": {
+            "$ref": "#/definitions/DTOAPIProdotto"
+          },
+          "QuantitàSingolo": {
+            "format": "double",
+            "type": "number"
+          },
+          "UnitaQntSingolo": {
+            "$ref": "#/definitions/DTOAPIUnitaMisura"
+          },
+          "TipologiaIva": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          },
+          "EsenzioneIva": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          },
+          "PrezzoSingolo": {
+            "format": "double",
+            "type": "number"
+          },
+          "PrezzoTotale": {
+            "format": "double",
+            "type": "number"
+          },
+          "Sconto": {
+            "format": "double",
+            "type": "number"
+          },
+          "TipoSconto": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Iva": {
+            "format": "double",
+            "type": "number"
+          },
+          "CodiceCommerciale": {
+            "type": "string"
+          },
+          "NomeCommerciale": {
+            "type": "string"
+          },
+          "TipoRettaEntita": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          },
+          "Mese": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Anno": {
+            "format": "int32",
+            "type": "integer"
+          }
+        }
+      },
+      "DTOAPIAnagrafica": {
+        "type": "object",
+        "properties": {
+          "CodiceFiscale": {
+            "type": "string"
+          },
+          "Nome": {
+            "type": "string"
+          },
+          "Cognome": {
+            "type": "string"
+          },
+          "Comune": {
+            "type": "string"
+          },
+          "Provincia": {
+            "type": "string"
+          },
+          "Indirizzo": {
+            "type": "string"
+          },
+          "CAP": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIProdotto": {
+        "type": "object",
+        "properties": {
+          "NomeProdotto": {
+            "type": "string"
+          },
+          "Categoria": {
+            "$ref": "#/definitions/DTOAPICategoria"
+          }
+        }
+      },
+      "DTOAPIUnitaMisura": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Descrizione": {
+            "type": "string"
+          },
+          "Sigla": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIFiltriDocumento": {
+        "type": "object",
+        "properties": {
+          "CodiceDocumento": {
+            "type": "string"
+          },
+          "DataInizio": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "DataFine": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "CodiceFiscale": {
+            "type": "string"
+          },
+          "PartitaIva": {
+            "type": "string"
+          },
+          "RagioneSociale": {
+            "type": "string"
+          },
+          "Sessione": {
+            "$ref": "#/definitions/DTOAPISession"
+          }
+        }
+      },
+      "DTOAPIVisita": {
+        "type": "object",
+        "properties": {
+          "Identificativo": {
+            "type": "string"
+          },
+          "DataIntervento": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "DataInvio": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "Refertato": {
+            "type": "boolean"
+          },
+          "Paziente": {
+            "$ref": "#/definitions/DTOAPIVisitaPaziente"
+          },
+          "EsamiECG": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOAPIVisitaECG"
+            }
+          }
+        }
+      },
+      "DTOAPIVisitaPaziente": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "CodiceFiscale": {
+            "type": "string"
+          },
+          "Nome": {
+            "type": "string"
+          },
+          "Cognome": {
+            "type": "string"
+          },
+          "DataNascita": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "ComuneNascita": {
+            "type": "string"
+          },
+          "StatoCoscienza": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DTOAPIVisitaECG": {
+        "type": "object",
+        "properties": {
+          "TipoFile": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "PathFile": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOAPIRichiestaSomministrazioni": {
+        "type": "object",
+        "properties": {
+          "IDOperatore": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "IDAssistito": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "GUIDMedibox": {
+            "type": "string"
+          },
+          "DataRiferimento": {
+            "format": "date-time",
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICAnagrafica": {
+        "type": "object",
+        "properties": {
+          "COGNOME": {
+            "type": "string"
+          },
+          "NOME": {
+            "type": "string"
+          },
+          "SESSO": {
+            "type": "string"
+          },
+          "DATA_NASCITA": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "CODICE_ISTAT_COMUNE_NASCITA": {
+            "type": "string"
+          },
+          "CODICE_FISCALE": {
+            "type": "string"
+          },
+          "INDIRIZZO_RESIDENZA": {
+            "type": "string"
+          },
+          "CODICE_ISTAT_COMUNE_RESIDENZA": {
+            "type": "string"
+          },
+          "CAP_RESIDENZA": {
+            "type": "string"
+          },
+          "TELEFONO": {
+            "type": "string"
+          },
+          "CELLULARE": {
+            "type": "string"
+          },
+          "EMAIL": {
+            "type": "string"
+          },
+          "PEC": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICReversaleGETResult": {
+        "type": "object",
+        "properties": {
+          "ANNO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NUMERO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DataOperazione": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "CAUSALE": {
+            "type": "string"
+          },
+          "CAPITOLO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "ARTICOLO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "IMPORTO": {
+            "format": "double",
+            "type": "number"
+          },
+          "AnnoAccertamento": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NumeroAccertamento": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "CompetenzaResiduo": {
+            "type": "string"
+          },
+          "DETTAGLIO": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOSVICRigaReversale"
+            }
+          },
+          "CodiceErrore": {
+            "type": "string"
+          },
+          "ERRORE": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICRigaReversale": {
+        "type": "object",
+        "properties": {
+          "CodiceDebitore": {
+            "type": "string"
+          },
+          "Importo": {
+            "type": "string"
+          },
+          "Nota": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICReversalePOST": {
+        "type": "object",
+        "properties": {
+          "NumeroAccertamento": {
+            "type": "string"
+          },
+          "AnnoPagamento": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "AnnoCompetenza": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Dettaglio": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOSVICRigaReversale"
+            }
+          }
+        }
+      },
+      "DTOSVICReversalePOSTResult": {
+        "type": "object",
+        "properties": {
+          "Anno": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Numero": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "CodiceErrore": {
+            "type": "string"
+          },
+          "Errore": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICDebitorePOST": {
+        "type": "object",
+        "properties": {
+          "CodiceDebitore": {
+            "type": "string"
+          },
+          "TipoAnagrafica": {
+            "type": "string"
+          },
+          "RagioneSociale": {
+            "type": "string"
+          },
+          "Cognome": {
+            "type": "string"
+          },
+          "Nome": {
+            "type": "string"
+          },
+          "Sesso": {
+            "type": "string"
+          },
+          "DataNascita": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "LocalitàNascita": {
+            "type": "string"
+          },
+          "ProvinciaNascita": {
+            "type": "string"
+          },
+          "PartitaIVA": {
+            "type": "string"
+          },
+          "CodiceFiscale": {
+            "type": "string"
+          },
+          "Indirizzo": {
+            "type": "string"
+          },
+          "Località": {
+            "type": "string"
+          },
+          "CAP": {
+            "type": "string"
+          },
+          "Provincia": {
+            "type": "string"
+          },
+          "Email": {
+            "type": "string"
+          },
+          "Telefono": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICDebitorePOSTResult": {
+        "type": "object",
+        "properties": {
+          "CodiceDebitore": {
+            "type": "string"
+          },
+          "CodiceErrore": {
+            "type": "string"
+          },
+          "Errore": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICMandatoGETResult": {
+        "type": "object",
+        "properties": {
+          "ANNO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NUMERO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DataOperazione": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "CAUSALE": {
+            "type": "string"
+          },
+          "CAPITOLO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "ARTICOLO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "IMPORTO": {
+            "format": "double",
+            "type": "number"
+          },
+          "AnnoImpegno": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "NumeroImpegno": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "CompetenzaResiduo": {
+            "type": "string"
+          },
+          "DETTAGLIO": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOSVICRigaMandato"
+            }
+          },
+          "CodiceErrore": {
+            "type": "string"
+          },
+          "ERRORE": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICRigaMandato": {
+        "type": "object",
+        "properties": {
+          "CodiceCreditore": {
+            "type": "string"
+          },
+          "Importo": {
+            "type": "string"
+          },
+          "Nota": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICMandatoImpegnoPOST": {
+        "type": "object",
+        "properties": {
+          "NumeroImpegno": {
+            "type": "string"
+          },
+          "AnnoPagamento": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "AnnoCompetenza": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "AnnoAssunzione": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Dettaglio": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOSVICRigaMandato"
+            }
+          }
+        }
+      },
+      "DTOSVICMandatoPOSTResult": {
+        "type": "object",
+        "properties": {
+          "Anno": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Numero": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "CodiceErrore": {
+            "type": "string"
+          },
+          "Errore": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICMandatoSpesaFissaPOST": {
+        "type": "object",
+        "properties": {
+          "Capitolo": {
+            "type": "string"
+          },
+          "Articolo": {
+            "type": "string"
+          },
+          "Causale": {
+            "type": "string"
+          },
+          "AnnoPagamento": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "AnnoCompetenza": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "Dettaglio": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DTOSVICRigaMandato"
+            }
+          }
+        }
+      },
+      "DTOSVICBudget": {
+        "type": "object",
+        "properties": {
+          "ANNO_BUDGET": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "MESE_BUDGET": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "ENTRATA_USCITA": {
+            "type": "string"
+          },
+          "CONTO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "SOTTOCONTO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DESCRIZIONE": {
+            "type": "string"
+          },
+          "COMPETENZA": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "CASSA": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "MISSIONE": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DESCRIZIONE_MISSIONE": {
+            "type": "string"
+          },
+          "PROGRAMMA": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DESCRIZIONE_PROGRAMMA": {
+            "type": "string"
+          },
+          "TITOLO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DESCRIZIONE_TITOLO": {
+            "type": "string"
+          },
+          "RESPONSABILE": {
+            "type": "string"
+          },
+          "CONTRO_DI_COSTO_RICAVO": {
+            "type": "string"
+          }
+        }
+      },
+      "DTOSVICMovimentazione": {
+        "type": "object",
+        "properties": {
+          "TIPO_OPERAZIONE": {
+            "type": "string"
+          },
+          "DATA_OPERAZIONE": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "NUMERO_OPERAZIONE": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "CONTO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "SOTTOCONTO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DARE_AVERE": {
+            "type": "string"
+          },
+          "IMPORTO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "MISSIONE": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DESCRIZIONE_MISSIONE": {
+            "type": "string"
+          },
+          "PROGRAMMA": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DESCRIZIONE_PROGRAMMA": {
+            "type": "string"
+          },
+          "TITOLO": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "DESCRIZIONE_TITOLO": {
+            "type": "string"
+          },
+          "RESPONSABILE": {
+            "type": "string"
+          },
+          "CONTRO_DI_COSTO_RICAVO": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "Bearer": {
+        "type": "basic",
+        "description": "Bearer Authentication"
+      },
+      "apiKey": {
+        "type": "apiKey",
+        "description": "API Key Authentication",
+        "name": "apiKey",
+        "in": "header"
+      }
+    }
+  }
